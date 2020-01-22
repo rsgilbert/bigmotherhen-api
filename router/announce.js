@@ -12,7 +12,7 @@ router.get('/announcement', async (req, res) => {
 router.post('/announcement', async (req, res) => {
     const newAnnouncement = req.body
     const announcement = await Announcement.create(newAnnouncement)
-    res.send(announcement)
+    res.json(announcement)
 })
 
 module.exports = router
