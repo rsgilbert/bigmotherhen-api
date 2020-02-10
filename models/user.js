@@ -5,10 +5,10 @@ const mongoose = require('mongoose')
 const userSchema = mongoose.Schema({
     email: { type: String, required: true, unique: true },
     hashedPassword: { type: String, required: true },
-    trainer: { type: Boolean, default: false },
     updatedAt: { type: Date, default: Date.now },
     name: String,
     phone: String,
+    admin: { type: Boolean, default: false },
 })
 
 userSchema.methods.checkPassword = function(guess, done) {

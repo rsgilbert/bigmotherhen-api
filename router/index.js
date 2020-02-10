@@ -1,9 +1,8 @@
 const express = require('express')
 const router = express.Router()
-const announce = require('./announce')
-const lessons = require('./lessons')
+const report = require('./report')
 const signup = require('./signup')
-const signin = require('./signin')
+const login = require('./login')
 
 router.get('/test', (_, res) => {
     return res.json("Test Successful")
@@ -11,10 +10,9 @@ router.get('/test', (_, res) => {
 
 
 
-router.use(announce)
-router.use(lessons)
+router.use(report)
 router.use(signup)
-router.use(signin)
+router.use(login)
 
 
 module.exports = router
