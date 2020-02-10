@@ -4,29 +4,19 @@ const User = require('../models/user')
 
 const { hashPassword, status } = require('./utils')
 
-/**
- * Signing up a user here basically means creating them a password.
- * If the person's email is known (that is, exists) in the user collection he can create a password.
- * A person can only signup if he does not have a password attached to his email
- */
 router.post('/signup', async (req, res) => {
-    const { email, password } = req.body
+    const { email } = req.body
     let user = await User.findOne({ email })
     if(user) {
-        if(user.hashedPassword) {
-            res.status(status.CONFLICT).end()
-        }
-        else {
-            let details = {
-                hashedPassword: await hashPassword(password),
-                updatedAt: new Date(),
-                trainer:  user.email.includes("skylla")
-            }
-            user = await User.findByIdAndUpdate(user._id, details, { new: true})
-            return res.json(user)   
-        }
+        return res.status(status.CONFLICT).end()
     }
-    else return res.json(status.NOT_FOUND).end()
+    else {
+        user = req.body
+        user.hashedPassword = await hashPassword(user.password)
+        const newUser = await User.create(req.body)
+        console.log(newUser)
+        return res.json(newUser)
+    } 
 })
 
 module.exports = router
