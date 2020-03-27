@@ -1,7 +1,6 @@
 const express =  require('express')
 const compression = require('compression')
 const bodyParser = require('body-parser')
-const path = require('path')
 const router = require('./router')
 const morgan = require('morgan')
 const app = express()
